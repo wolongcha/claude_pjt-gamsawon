@@ -1,0 +1,652 @@
+<title>감사원이 걸어낸 정보시스템</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ink:#14202e;
+  --ink-2:#2b3a4c;
+  --paper:#f7f8fa;
+  --surface:#ffffff;
+  --surface-2:#eef1f5;
+  --rule:#d5dbe3;
+  --rule-soft:#e4e9ef;
+  --slate:#5a6a7d;
+  --slate-2:#7d8b9c;
+  --seal:#a8322a;
+  --seal-soft:#f0e0de;
+  --amber:#8a6410;
+  --amber-soft:#f3ebd8;
+  --teal:#1f5d5b;
+  --teal-soft:#dceceb;
+  --shadow:0 1px 2px rgba(20,32,46,.06),0 8px 24px -12px rgba(20,32,46,.18);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#e6ecf3;
+    --ink-2:#c3ceda;
+    --paper:#0e151d;
+    --surface:#151f2a;
+    --surface-2:#1c2836;
+    --rule:#2b3a4a;
+    --rule-soft:#223040;
+    --slate:#93a3b5;
+    --slate-2:#72859a;
+    --seal:#e0857c;
+    --seal-soft:#33201e;
+    --amber:#d7ab54;
+    --amber-soft:#2e2617;
+    --teal:#77b8b4;
+    --teal-soft:#16302f;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e6ecf3;
+  --ink-2:#c3ceda;
+  --paper:#0e151d;
+  --surface:#151f2a;
+  --surface-2:#1c2836;
+  --rule:#2b3a4a;
+  --rule-soft:#223040;
+  --slate:#93a3b5;
+  --slate-2:#72859a;
+  --seal:#e0857c;
+  --seal-soft:#33201e;
+  --amber:#d7ab54;
+  --amber-soft:#2e2617;
+  --teal:#77b8b4;
+  --teal-soft:#16302f;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans KR",system-ui,-apple-system,"Malgun Gothic",sans-serif;
+  font-weight:400;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  word-break:keep-all;
+}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ── 표제부 ───────────────────────────── */
+.masthead{
+  border-bottom:2px solid var(--ink);
+  padding:64px 0 28px;
+  margin-bottom:44px;
+}
+.stamp{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.7rem;font-weight:600;letter-spacing:.14em;
+  color:var(--seal);
+  border:1px solid var(--seal);
+  padding:5px 11px;border-radius:2px;
+  margin-bottom:22px;
+}
+h1{
+  font-family:"Nanum Myeongjo",Batang,serif;
+  font-weight:800;
+  font-size:clamp(2rem,5.2vw,3.1rem);
+  line-height:1.24;
+  letter-spacing:-.02em;
+  margin:0 0 18px;
+  text-wrap:balance;
+}
+.deck{
+  font-size:1.06rem;color:var(--ink-2);
+  max-width:60ch;margin:0 0 30px;line-height:1.8;
+}
+.basis{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(126px,1fr));
+  gap:1px;background:var(--rule);
+  border:1px solid var(--rule);
+}
+.basis div{background:var(--paper);padding:14px 16px}
+.basis dt{
+  font-size:.68rem;letter-spacing:.1em;color:var(--slate-2);
+  text-transform:uppercase;font-family:"IBM Plex Mono",monospace;margin:0 0 4px;
+}
+.basis dd{
+  margin:0;font-family:"IBM Plex Mono",monospace;
+  font-size:1.32rem;font-weight:600;font-variant-numeric:tabular-nums;
+  letter-spacing:-.01em;
+}
+.basis dd small{font-size:.74rem;font-weight:400;color:var(--slate);margin-left:3px}
+
+/* ── 공통 ─────────────────────────────── */
+h2{
+  font-family:"Nanum Myeongjo",Batang,serif;
+  font-size:1.68rem;font-weight:800;letter-spacing:-.015em;
+  margin:0 0 8px;text-wrap:balance;
+}
+.sec{margin-top:72px}
+.sec-lead{color:var(--slate);margin:0 0 30px;max-width:62ch}
+.rule{height:1px;background:var(--rule);border:0;margin:0 0 26px}
+
+/* ── 분포 막대 ────────────────────────── */
+.dist{display:flex;flex-direction:column;gap:11px}
+.row{display:grid;grid-template-columns:132px 1fr 50px;gap:14px;align-items:center}
+.row .nm{font-size:.9rem;font-weight:500;text-align:right;color:var(--ink-2)}
+.bar{height:22px;background:var(--surface-2);position:relative;border-radius:1px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--ink);opacity:.86}
+.row.hi .bar span{background:var(--seal)}
+.row .n{
+  font-family:"IBM Plex Mono",monospace;font-size:.86rem;
+  font-variant-numeric:tabular-nums;color:var(--slate)
+}
+
+/* ── 유형 카드 ────────────────────────── */
+.type{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-left:3px solid var(--slate-2);
+  border-radius:2px;
+  padding:26px 28px;
+  margin-bottom:22px;
+  box-shadow:var(--shadow);
+}
+.type.t-high{border-left-color:var(--seal)}
+.type.t-mid{border-left-color:var(--amber)}
+.type.t-ops{border-left-color:var(--teal)}
+.type-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;
+  margin-bottom:6px;
+}
+.type-head h3{
+  font-family:"Nanum Myeongjo",Batang,serif;
+  font-size:1.3rem;font-weight:700;margin:0;letter-spacing:-.01em;
+}
+.count{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;font-weight:600;
+  letter-spacing:.06em;padding:3px 9px;border-radius:2px;
+  background:var(--surface-2);color:var(--slate);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.t-high .count{background:var(--seal-soft);color:var(--seal)}
+.t-mid .count{background:var(--amber-soft);color:var(--amber)}
+.t-ops .count{background:var(--teal-soft);color:var(--teal)}
+.gist{color:var(--ink-2);margin:0 0 20px;font-size:.98rem}
+
+.block{margin-top:18px}
+.block > h4{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.68rem;font-weight:600;letter-spacing:.13em;
+  color:var(--slate-2);text-transform:uppercase;
+  margin:0 0 9px;padding-bottom:6px;border-bottom:1px solid var(--rule-soft);
+}
+.cases{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+.cases li{
+  font-size:.9rem;color:var(--ink-2);padding-left:15px;position:relative;line-height:1.62
+}
+.cases li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:5px;height:1px;background:var(--slate-2)
+}
+.cases .yr{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;
+  color:var(--slate-2);margin-right:7px;font-variant-numeric:tabular-nums
+}
+.law{
+  background:var(--surface-2);border-radius:2px;padding:13px 15px;
+  font-size:.85rem;color:var(--ink-2);line-height:1.7
+}
+.law code{
+  font-family:"IBM Plex Mono",monospace;font-size:.82em;
+  color:var(--ink);background:none;font-weight:500
+}
+.check{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.check li{
+  font-size:.92rem;padding-left:26px;position:relative;line-height:1.68;color:var(--ink)
+}
+.check li::before{
+  content:"□";position:absolute;left:4px;top:0;
+  color:var(--seal);font-size:1rem;line-height:1.68
+}
+
+/* ── 단계 매트릭스 ────────────────────── */
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px}
+table{border-collapse:collapse;width:100%;min-width:660px;background:var(--surface)}
+th,td{
+  text-align:left;padding:12px 14px;
+  border-bottom:1px solid var(--rule-soft);font-size:.88rem;vertical-align:top
+}
+thead th{
+  background:var(--surface-2);
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--slate);
+  border-bottom:1px solid var(--rule)
+}
+tbody tr:last-child td{border-bottom:0}
+td:first-child{font-weight:500;white-space:nowrap;color:var(--ink)}
+.tag{
+  display:inline-block;font-family:"IBM Plex Mono",monospace;
+  font-size:.7rem;padding:2px 7px;border-radius:2px;
+  background:var(--surface-2);color:var(--slate);white-space:nowrap
+}
+
+/* ── 주의 박스 ────────────────────────── */
+.note{
+  border:1px solid var(--rule);border-left:3px solid var(--amber);
+  background:var(--surface);border-radius:2px;
+  padding:20px 24px;margin-top:26px;box-shadow:var(--shadow)
+}
+.note h4{
+  font-family:"Nanum Myeongjo",Batang,serif;
+  font-size:1.04rem;font-weight:700;margin:0 0 8px
+}
+.note p{margin:0 0 10px;font-size:.92rem;color:var(--ink-2)}
+.note p:last-child{margin-bottom:0}
+
+footer{
+  margin-top:80px;padding-top:24px;border-top:1px solid var(--rule);
+  font-size:.83rem;color:var(--slate);line-height:1.8
+}
+footer strong{color:var(--ink-2);font-weight:500}
+footer code{font-family:"IBM Plex Mono",monospace;font-size:.92em}
+
+@media (max-width:640px){
+  .row{grid-template-columns:96px 1fr 42px;gap:10px}
+  .row .nm{font-size:.8rem}
+  .type{padding:22px 20px}
+  .masthead{padding-top:44px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="stamp">감사원 감사결과 2016–2026 · 실증 분석</div>
+  <h1>감사원이 걸어낸 정보시스템</h1>
+  <p class="deck">
+    감사원이 2016년부터 2026년까지 공개한 감사보고서 1,318건 중 정보시스템 관련 97건을
+    본문까지 읽어 지적사항 117건을 뽑아냈다. 무엇이 실제로 지적받는지, 그 판단기준이
+    무엇인지, 감리인이 어느 시점에 무엇을 확인하면 막을 수 있는지를 정리했다.
+  </p>
+  <dl class="basis">
+    <div><dt>분석 보고서</dt><dd>1,318<small>건</small></dd></div>
+    <div><dt>정보시스템 관련</dt><dd>97<small>건</small></dd></div>
+    <div><dt>추출 지적사항</dt><dd>117<small>건</small></dd></div>
+    <div><dt>출처 보고서</dt><dd>38<small>건</small></dd></div>
+    <div><dt>대상 기간</dt><dd>11<small>년</small></dd></div>
+  </dl>
+</header>
+
+<section>
+  <h2>지적 유형 분포</h2>
+  <p class="sec-lead">
+    117건을 성격별로 묶은 결과다. 특정 유형이 압도하지 않고 사업 전 주기에 고르게 퍼져 있다.
+    구축 단계의 산정·계약 문제와 운영 단계의 장애·보안 문제가 거의 같은 비중이다.
+  </p>
+  <div class="dist">
+    <div class="row hi"><div class="nm">운영·장애·이관</div><div class="bar"><span style="width:100%"></span></div><div class="n">19</div></div>
+    <div class="row hi"><div class="nm">데이터 품질·개방</div><div class="bar"><span style="width:95%"></span></div><div class="n">18</div></div>
+    <div class="row hi"><div class="nm">보안·개인정보</div><div class="bar"><span style="width:74%"></span></div><div class="n">14</div></div>
+    <div class="row hi"><div class="nm">대가·규모산정</div><div class="bar"><span style="width:68%"></span></div><div class="n">13</div></div>
+    <div class="row"><div class="nm">제안서평가·계약</div><div class="bar"><span style="width:42%"></span></div><div class="n">8</div></div>
+    <div class="row"><div class="nm">업무기능 결함</div><div class="bar"><span style="width:42%"></span></div><div class="n">8</div></div>
+    <div class="row"><div class="nm">하도급·인력관리</div><div class="bar"><span style="width:26%"></span></div><div class="n">5</div></div>
+    <div class="row"><div class="nm">중복투자·사전협의</div><div class="bar"><span style="width:26%"></span></div><div class="n">5</div></div>
+    <div class="row"><div class="nm">활용·성과</div><div class="bar"><span style="width:21%"></span></div><div class="n">4</div></div>
+    <div class="row"><div class="nm">개별 사업 특유</div><div class="bar"><span style="width:100%"></span></div><div class="n">23</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>유형별 지적 내용과 감리 확인사항</h2>
+  <p class="sec-lead">
+    각 유형마다 감사원이 실제로 적용한 판단기준, 걸린 지적사항, 그리고 감리인이 그 시점에
+    확인해야 할 것을 붙였다. 지적사항은 보고서 원문의 제목을 그대로 옮긴 것이다.
+  </p>
+  <hr class="rule">
+
+  <article class="type t-high">
+    <div class="type-head"><h3>대가·규모산정</h3><span class="count">13건</span></div>
+    <p class="gist">
+      감사원이 가장 기계적으로 검증하는 영역이다. 지침에 계산식이 명시되어 있어
+      숫자를 다시 넣어보면 바로 드러나기 때문이다. 감리인이 산식과 근거자료를
+      대조하는 것만으로 예방 가능한 유형이 대부분이다.
+    </p>
+    <div class="block">
+      <h4>감사원 판단기준</h4>
+      <div class="law">
+        <code>전자정부법 제45조 제3항</code> 및 <code>행정기관 및 공공기관 정보시스템 구축·운영 지침 제6조 제1항</code>에 따라,
+        하드웨어는 <code>정보시스템 하드웨어 규모산정 지침</code>(한국정보통신기술협회, TTA)의 수식계산법으로 산정해야 한다.
+        CPU는 <em>분당 트랜잭션 수 × 기본 tpmC 보정 × 피크타임 부하 보정 × DB 크기 보정 × 애플리케이션 구조·부하 보정 ×
+        클러스터 보정 × 여유율</em>, 웹서버·WAS는 <em>동시사용자 수 × 사용자당 오퍼레이션 수 × 인터페이스 부하 보정 …</em>로 계산한다.
+        소프트웨어 개발비는 <code>소프트웨어사업 대가산정 가이드</code>(한국소프트웨어산업협회)를 따른다.
+      </div>
+    </div>
+    <div class="block">
+      <h4>실제 지적사항</h4>
+      <ul class="cases">
+        <li><span class="yr">2016</span>차세대 일모아시스템 구축사업 대가산정 부적정</li>
+        <li><span class="yr">2016</span>저탄소차협력금 운영시스템 하드웨어 규모산정 부적정</li>
+        <li><span class="yr">2016</span>지하시설물 관리시스템 하드웨어 규모산정 부적정</li>
+        <li><span class="yr">2016</span>IT네트워크장비 규모산정 지침 미비</li>
+        <li><span class="yr">2017</span>정보시스템 소프트웨어 대가 및 하드웨어 규모산정 부적정</li>
+        <li><span class="yr">2017</span>차세대 국세행정시스템 하드웨어 용량 관리 부적정</li>
+        <li><span class="yr">2017</span>건설사업정보시스템 운영·유지관리비 산정 부적정</li>
+        <li><span class="yr">2018</span>정보화 위수탁사업 임차료 산정기준 불합리</li>
+        <li><span class="yr">2025</span>정보시스템 구축사업 사업기간 산정기준 개선 필요</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li>tpmC 산정서에 <strong>보정계수의 근거</strong>가 붙어 있는가. 값만 적고 출처가 없으면 그 자체가 지적 대상이다.</li>
+        <li>동시사용자 수·피크타임 부하의 <strong>추정 근거가 실측 또는 유사 사업 실적</strong>인가, 사업자가 제시한 값을 그대로 받았는가.</li>
+        <li>대가산정이 <strong>계약 시점 기준 최신판 가이드</strong>를 적용했는가. 구 기준 적용은 반복 지적 사유다.</li>
+        <li>구축 후 <strong>실제 사용량과 산정치를 비교</strong>한 기록이 있는가. 국세청 사례는 재산정 후 도입 장비의 용량 관리가 문제됐다.</li>
+        <li>유지관리비·임차료가 <strong>대가산정 가이드의 요율</strong>을 벗어나지 않는가.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="type t-high">
+    <div class="type-head"><h3>보안·개인정보</h3><span class="count">14건</span></div>
+    <p class="gist">
+      최근으로 올수록 비중이 커지는 유형이다. 2026년 지적 8건 중 5건이 여기 속한다.
+      과거의 "보안 조치 미흡"에서 <strong>접근권한·접속기록 점검의 실효성</strong>과
+      <strong>지적 후 개선 이행 여부</strong>로 초점이 옮겨갔다.
+    </p>
+    <div class="block">
+      <h4>실제 지적사항</h4>
+      <ul class="cases">
+        <li><span class="yr">2026</span>공공시스템에 대한 접근권한 및 접속기록 점검 미흡</li>
+        <li><span class="yr">2026</span>연구기관 서버 관리 및 보안 취약점 개선조치 미흡</li>
+        <li><span class="yr">2026</span>웹사이트 현행화 누락 등 개인정보 노출탐지 부실 수행</li>
+        <li><span class="yr">2026</span>공공시스템 보안 취약점 점검 체계 마련 필요</li>
+        <li><span class="yr">2024</span>개인정보 비식별화 조치 미흡</li>
+        <li><span class="yr">2020</span>정보시스템 보안취약점 등 개선이행 부적정</li>
+        <li><span class="yr">2018</span>우편·금융 등 관련 정보시스템의 소프트웨어 개발보안 부적정</li>
+        <li><span class="yr">2017</span>전자의무기록 무단열람 사전방지대책 미흡</li>
+        <li><span class="yr">2017</span>행복e음 실습용 교육시스템 개인정보보호 부적정</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li><strong>인사이동·퇴직 시 접근권한 말소</strong>가 인사시스템과 연계되어 자동 처리되는가. 2026년 지적은 인사정보 연계 시스템의 권한 말소 누락이었다.</li>
+        <li>접속기록을 <strong>남기는 것</strong>과 <strong>점검하는 것</strong>은 다르다. 점검 주기·담당자·이상징후 판단기준이 문서로 있는가.</li>
+        <li><strong>교육·실습·테스트 환경에 운영 데이터</strong>가 들어가 있지 않은가. 행복e음 사례가 정확히 이 문제였다.</li>
+        <li>이전 감사·점검에서 지적된 취약점의 <strong>조치 완료 증빙</strong>이 있는가. "개선이행 부적정"은 조치했다고 보고하고 실제로는 안 한 경우다.</li>
+        <li>소프트웨어 개발보안(시큐어코딩) 점검이 <strong>산출물로 남아 있는가</strong>.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="type t-ops">
+    <div class="type-head"><h3>운영·장애·재해복구</h3><span class="count">19건</span></div>
+    <p class="gist">
+      구축이 끝난 뒤가 더 위험하다. 2023년 행정전산망 장애 이후 감사원은 운영 단계를
+      정면으로 다루기 시작했고, 2025년 「대국민 행정정보시스템 구축·운영실태」는
+      장애대응 체계 자체를 해부했다.
+    </p>
+    <div class="block">
+      <h4>실제 지적사항</h4>
+      <ul class="cases">
+        <li><span class="yr">2025</span>중요 이벤트 관제 및 전파 부실</li>
+        <li><span class="yr">2025</span>복합장애 원인파악을 위한 체계적 접근 미흡</li>
+        <li><span class="yr">2025</span>장애발생률이 높은 노후장비 교체 방안 부재</li>
+        <li><span class="yr">2025</span>전산장비 패치 및 관제시스템 연동 미흡</li>
+        <li><span class="yr">2025</span>행정정보시스템 등급제 관리 방안 마련 필요</li>
+        <li><span class="yr">2025</span>국민불편 최소화를 위한 대체사이트 안내 등 미흡</li>
+        <li><span class="yr">2024</span>행정·공공기관 재해복구시스템 구축·운용 개선 필요</li>
+        <li><span class="yr">2016</span>“생활공감지도시스템” 사후 정비 부적정</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li>장애 등급 판정 기준과 <strong>등급별 전파 대상·시한</strong>이 정해져 있는가. "관제는 했으나 전파를 안 했다"가 2025년 핵심 지적이다.</li>
+        <li>관제시스템이 <strong>패치 관리체계와 연동</strong>되는가. 패치 미적용 장비를 관제가 인지하지 못하는 구조인지 확인한다.</li>
+        <li>노후장비 <strong>교체 계획에 예산과 연도</strong>가 붙어 있는가. 계획 없이 "노후" 표기만 있으면 부재로 본다.</li>
+        <li>재해복구 체계가 <strong>실제 전환 훈련</strong>으로 검증됐는가. 구축만 하고 훈련 기록이 없는 사례가 반복된다.</li>
+        <li>장애 시 <strong>대체 서비스·안내 경로</strong>가 설계에 포함됐는가.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="type t-high">
+    <div class="type-head"><h3>데이터 품질·개방</h3><span class="count">18건</span></div>
+    <p class="gist">
+      2018–2019년에 집중적으로 지적된 영역이다. 공공데이터 정책이 확대되면서
+      <strong>등록은 했는데 품질이 없는</strong> 데이터가 대량으로 드러났다.
+      현행화 누락과 표준 미준수가 반복 사유다.
+    </p>
+    <div class="block">
+      <h4>실제 지적사항</h4>
+      <ul class="cases">
+        <li><span class="yr">2019</span>개방표준데이터의 생성 및 관리체계 부적정</li>
+        <li><span class="yr">2019</span>공간정보 등 유형별 데이터 품질평가기준 수립 미흡</li>
+        <li><span class="yr">2019</span>주소 및 위·경도정보 관련 개방표준데이터 품질관리 미흡</li>
+        <li><span class="yr">2018</span>공공데이터포털의 데이터 등록·관리 부적정</li>
+        <li><span class="yr">2018</span>개방표준으로 제정된 공공데이터 관리 부적정</li>
+        <li><span class="yr">2017</span>국가수자원관리종합정보시스템 정보 현행화 미흡</li>
+        <li><span class="yr">2016</span>관세행정 데이터 정제사업 연도별 계획수립 및 변경 부적정</li>
+        <li><span class="yr">2016</span>국가기본공간정보 데이터모델 연구 및 DB구축 시범사업 추진 부적정</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li>데이터 <strong>현행화 주기와 책임 부서</strong>가 정해져 있는가. 최초 적재만 하고 갱신 절차가 없는 설계가 흔하다.</li>
+        <li>개방 대상 데이터가 <strong>개방표준 고시 형식</strong>을 따르는가. 항목명·코드체계 임의 사용이 지적된다.</li>
+        <li>품질 검증이 <strong>완전성·정확성·일관성 기준</strong>으로 수행됐는가, 건수 확인에 그쳤는가.</li>
+        <li>데이터 정제·구축 사업의 <strong>연도별 계획과 실제 수행 범위</strong>가 일치하는가.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="type t-mid">
+    <div class="type-head"><h3>제안서평가·계약</h3><span class="count">8건</span></div>
+    <p class="gist">
+      "부당 처리"라는 표현이 붙는 유형이다. 다른 유형이 대개 통보·주의에 그치는 데 비해
+      여기서는 <strong>문책 요구</strong>가 나온다. 평가 절차의 하자는 고의성을 의심받기 때문이다.
+    </p>
+    <div class="block">
+      <h4>감사원 판단기준</h4>
+      <div class="law">
+        온라인 기술능력평가는 <strong>평가위원 본인이 직접 평가하는지 확인할 수단</strong>과
+        <strong>제안요청서·제안서 열람 여부를 확인할 수단</strong>을 갖춰야 한다.
+        조달청 사례에서 감사원은 평가위원 사진 DB가 없어 화상으로 본인 확인이 불가능하고
+        평가자료 열람 여부도 확인할 수 없는 점을 지적했다.
+      </div>
+    </div>
+    <div class="block">
+      <h4>실제 지적사항</h4>
+      <ul class="cases">
+        <li><span class="yr">2016</span>“정보시스템 운영 및 유지관리 용역” 낙찰자 선정업무 부당 처리</li>
+        <li><span class="yr">2016</span>통합여객흐름 관리시스템 고도화사업 제안서 평가업무 부당 처리</li>
+        <li><span class="yr">2016</span>전기자동차 충전인프라 정보시스템 구축사업 제안서 평가업무 부당 처리</li>
+        <li><span class="yr">2016</span>정보화사업의 제안서 기술능력 평가체계 부적정</li>
+        <li><span class="yr">2016</span>소프트웨어사업의 제안서 보상 대상자 선정기준 미비</li>
+        <li><span class="yr">2016</span>대기업 소프트웨어사업자 참여제한 운영 부적정</li>
+        <li><span class="yr">2018</span>정보통신공사 계약체결업무 부적정</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li>평가위원 <strong>선정·제척·회피</strong> 기록이 남아 있는가.</li>
+        <li>평가표의 <strong>배점과 실제 부여 점수의 산출 근거</strong>가 확인 가능한가. 점수만 있고 사유가 없으면 부당 처리로 본다.</li>
+        <li>대기업 참여제한 예외 적용 시 <strong>고시 요건 충족 근거</strong>가 문서화됐는가.</li>
+        <li>제안서 보상 대상자 선정기준이 <strong>사전에 공고</strong>됐는가.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="type t-mid">
+    <div class="type-head"><h3>하도급·투입인력</h3><span class="count">5건</span></div>
+    <p class="gist">
+      건수는 적지만 <strong>제안서 대비 실제 투입인력</strong>이라는 단일 쟁점으로 수렴한다.
+      감리인이 인력 투입 현황을 대조하면 바로 드러나는 유형이다.
+    </p>
+    <div class="block">
+      <h4>감사원 판단기준</h4>
+      <div class="law">
+        구 <code>소프트웨어산업진흥법 제20조의3 제1항</code>에 따라 소프트웨어사업자가 도급받은 사업의
+        전부 또는 일부를 하도급하거나 재하도급할 때는 <strong>미리 발주기관의 승인</strong>을 받아야 한다.
+        건강보험심사평가원 사례에서는 제안서에 32명 투입을 제시하고 계약 후 7명을 임의 제외한 뒤
+        7개 사업자와 미승인 하도급을 체결한 점이 지적됐다.
+        <br><br>
+        이 법은 2020년 <code>소프트웨어 진흥법</code>으로 전부개정되었으므로 현행 조문 번호는 별도 확인이 필요하다.
+      </div>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li><strong>제안서 투입인력 명단과 실제 투입 명단을 대조</strong>했는가. 이름·등급·투입률까지 본다.</li>
+        <li>인력 교체가 있었다면 <strong>발주기관 승인 문서</strong>가 있는가.</li>
+        <li>하도급 계약이 <strong>사전 승인</strong>됐는가. 사후 통보는 미승인으로 본다.</li>
+        <li>하도급으로 발생하는 <strong>부실 대책 방안</strong>이 제출됐는가. 제안요청서 요구사항인 경우가 많다.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="type t-mid">
+    <div class="type-head"><h3>업무기능 결함 — 돈이 새는 지점</h3><span class="count">8건 +α</span></div>
+    <p class="gist">
+      시스템은 완성됐고 검수도 통과했는데 <strong>업무 통제 기능이 작동하지 않아
+      실제로 금전 손실이 발생한</strong> 유형이다. 감리 관점에서 가장 아프다.
+      기능 목록에는 있으나 로직이 업무 규정을 구현하지 못한 경우이기 때문이다.
+    </p>
+    <div class="block">
+      <h4>실제 지적사항</h4>
+      <ul class="cases">
+        <li><span class="yr">2019</span>지방세정보시스템 과세누락 방지기능 미흡</li>
+        <li><span class="yr">2017</span>차세대 국세행정시스템 자료에 나와 있는 증권거래세 징수 누락</li>
+        <li><span class="yr">2017</span>교육행정정보시스템의 수당 검증기능 미흡과 승급계산 불합리</li>
+        <li><span class="yr">2017</span>유아학비지원시스템 유아학비 소급지원 방지기능 미흡</li>
+        <li><span class="yr">2017</span>지방교육 행·재정통합시스템 회계사고 방지 기능 개선 미흡</li>
+        <li><span class="yr">2022</span>자활정보시스템의 자활지원사업 관리기능 미흡</li>
+        <li><span class="yr">2022</span>장기 미집행 도시계획시설 재산세 부과·감면시스템 개선 미흡</li>
+        <li><span class="yr">2018</span>복지사각지대 발굴관리시스템 운용 불합리</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li>업무 규정의 <strong>금지·제한·검증 조항이 요구사항에 빠짐없이 반영</strong>됐는가. 국세청 사례는 시스템에 자료가 <em>있었는데도</em> 대사 로직이 없어 징수를 놓친 경우다.</li>
+        <li>요구사항추적표가 <strong>법령·규정 조항까지 추적</strong>하는가, 화면·기능 단위에 그치는가.</li>
+        <li>테스트 케이스에 <strong>음수·소급·중복·경계값 같은 예외 시나리오</strong>가 포함됐는가. 소급지원 방지 실패는 전형적인 경계조건 누락이다.</li>
+        <li>시스템 간 <strong>대사(對査) 기능</strong>이 설계에 있는가. 두 시스템에 각각 자료가 있어도 맞춰보지 않으면 누락은 계속된다.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="type">
+    <div class="type-head"><h3>중복투자·사전협의</h3><span class="count">5건</span></div>
+    <p class="gist">
+      개별 사업 단위 감리에서는 보이지 않는 유형이다. 기관 밖에 유사 시스템이 있는지는
+      감리인이 의식적으로 찾지 않으면 확인되지 않는다.
+    </p>
+    <div class="block">
+      <h4>실제 지적사항</h4>
+      <ul class="cases">
+        <li><span class="yr">2018</span>해양안전 관련 시스템 중복구축 및 사전협의 미흡</li>
+        <li><span class="yr">2017</span>물관리정보유통시스템과 재난정보공동이용시스템 통합추진 부적정</li>
+        <li><span class="yr">2016</span>지역정보화사업 사전협의제도 운영 부적정</li>
+        <li><span class="yr">2024</span>AI 데이터사업 성과 제고를 위한 유사·중복성 검증 및 특별점검 필요</li>
+        <li><span class="yr">2024</span>지방 지능정보화사업에 대한 예비검토 확대 운영 필요</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>감리 확인사항</h4>
+      <ul class="check">
+        <li>사전협의·예비검토 <strong>대상 사업인지 판단한 근거</strong>가 있는가.</li>
+        <li>유사 시스템 조사 범위가 <strong>소관 기관 밖까지</strong> 미쳤는가.</li>
+        <li>기존 시스템 <strong>연계·재사용을 검토한 기록</strong>이 있는가. 신규 구축 결정 사유가 문서로 남아야 한다.</li>
+      </ul>
+    </div>
+  </article>
+</section>
+
+<section class="sec">
+  <h2>감리 단계별 점검 배치</h2>
+  <p class="sec-lead">
+    같은 지적이라도 확인하기 좋은 시점이 다르다. 종료 감리에서 발견하면 이미 늦는 항목을
+    앞단으로 당겨 배치했다.
+  </p>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th>감리 시점</th><th>반드시 확인</th><th>관련 지적 유형</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>착수·계획</td>
+          <td>사전협의·예비검토 대상 판단 근거, 유사·중복 시스템 조사 범위, 기존 시스템 연계 검토 기록</td>
+          <td><span class="tag">중복투자</span></td>
+        </tr>
+        <tr>
+          <td>요구정의</td>
+          <td>업무 규정의 금지·제한·검증 조항이 요구사항에 반영됐는지, 요구사항추적표가 법령 조항까지 추적하는지</td>
+          <td><span class="tag">업무기능 결함</span></td>
+        </tr>
+        <tr>
+          <td>설계</td>
+          <td>tpmC 산정서의 보정계수 근거, 동시사용자 추정 근거, 시스템 간 대사 기능 설계, 재해복구 전환 시나리오</td>
+          <td><span class="tag">대가·규모산정</span> <span class="tag">운영</span></td>
+        </tr>
+        <tr>
+          <td>구현·시험</td>
+          <td>예외·경계값 테스트 케이스, 시큐어코딩 점검 산출물, 테스트 환경의 운영 데이터 사용 여부</td>
+          <td><span class="tag">업무기능 결함</span> <span class="tag">보안</span></td>
+        </tr>
+        <tr>
+          <td>전 단계 상시</td>
+          <td>제안서 대비 실제 투입인력 대조, 하도급 사전승인 문서, 인력 교체 승인 기록</td>
+          <td><span class="tag">하도급</span></td>
+        </tr>
+        <tr>
+          <td>종료·이관</td>
+          <td>접근권한 말소 연계, 접속기록 점검 절차, 데이터 현행화 주기와 책임부서, 장애 등급·전파 기준</td>
+          <td><span class="tag">보안</span> <span class="tag">데이터</span> <span class="tag">운영</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <h4>감리인이 특히 주의할 지점</h4>
+    <p>
+      <strong>"있다"와 "작동한다"는 다르다.</strong> 재해복구시스템은 구축됐으나 전환 훈련 기록이 없고,
+      접속기록은 남으나 점검 절차가 없고, 방지기능은 명세에 있으나 경계조건에서 통과되는 식이다.
+      감사원 지적의 상당수가 산출물 존재 여부가 아니라 실효성에서 나왔다.
+    </p>
+    <p>
+      <strong>수치에는 근거를 요구한다.</strong> 대가·규모산정 13건은 모두 계산식이 공개된 지침을 다시 적용해
+      드러난 것이다. 산정서에 값만 있고 보정계수의 출처가 없다면 그 상태로 감사를 받는다.
+    </p>
+    <p>
+      <strong>지적 후 조치가 다시 지적된다.</strong> 「정보시스템 보안취약점 등 개선이행 부적정」(2020),
+      「연구기관 서버 관리 및 보안 취약점 개선조치 미흡」(2026)처럼 이전 지적의 이행 여부가
+      새로운 지적이 된다. 과거 감사·점검 결과의 조치 완료 증빙을 감리 범위에 포함할 필요가 있다.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <strong>분석 근거</strong> · 감사원 「분야·종류별 감사결과」에 공개된 2016–2026년 감사보고서 전문 1,318건을
+    내려받아 <code>정보화사업 · 전산시스템 · 정보시스템 · 시스템운영 · 시스템유지관리</code> 키워드로 분류했다.
+    이 중 관련도가 높은 97건의 목차와 처분요구 부분에서 지적사항 117건을 추출하고, 대표 사례는 본문을 직접 확인했다.
+  </p>
+  <p>
+    <strong>한계</strong> · 지적사항 추출은 목차 서식과 처분요구 표기에 의존하므로 97건 중 17건에서는 항목을
+    뽑아내지 못했다. 유형 분류는 제목의 어휘를 기준으로 한 것이라 개별 사업 특유의 지적 23건은
+    유형화하지 않았다. 인용한 법령은 각 보고서가 판단기준으로 제시한 당시 조문이며,
+    소프트웨어산업진흥법을 비롯해 이후 개정된 것이 있으므로 실제 감리 적용 시 현행 조문 확인이 필요하다.
+  </p>
+</footer>
+
+</div>
