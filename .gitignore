@@ -1,0 +1,21 @@
+# 감사원 결정례집 원본 PDF (총 701MB, GitHub 용량 제한 초과)
+# 로컬 감사결과/ 폴더에만 보관하고 저장소에는 올리지 않음
+감사결과/*.pdf
+감사결과/*.PDF
+
+# 대용량 원본 데이터 일반
+*.pdf
+
+# 파이썬
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# 에디터/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
